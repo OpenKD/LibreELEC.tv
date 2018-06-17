@@ -22,11 +22,18 @@ PKG_NAME="xf86-video-nvidia"
 # "packages/x11/driver/xf86-video-nvidia/udev.d/96-nvidia.rules" whenever bumping version.
 # Host may require installation of python-lxml and python-requests packages.
 PKG_VERSION="390.67"
-PKG_SHA256="4d9d4a636d568a93412cd9a2db08c594adef20861707dfdfbd6ae15db3292b26"
-PKG_ARCH="x86_64"
+PKG_ARCH="x86_64 i386"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://www.nvidia.com/"
-PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86_64/$PKG_VERSION/NVIDIA-Linux-x86_64-$PKG_VERSION-no-compat32.run"
+
+if [ "$TARGET_ARCH" = "i386" ]; then
+  PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86/$PKG_VERSION/NVIDIA-Linux-x86-$PKG_VERSION.run"
+  PKG_SHA256="6f4af70ee3d03ed31c497a5d555164c56057b53ecedfc0d2c8de4b0b90728805"
+else
+  PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86_64/$PKG_VERSION/NVIDIA-Linux-x86_64-$PKG_VERSION-no-compat32.run"
+  PKG_SHA256="4d9d4a636d568a93412cd9a2db08c594adef20861707dfdfbd6ae15db3292b26"
+fi
+
 PKG_DEPENDS_TARGET="toolchain util-macros linux xorg-server libvdpau"
 PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_SECTION="x11/driver"
@@ -71,7 +78,9 @@ makeinstall_target() {
 
   mkdir -p $INSTALL/$(get_full_module_dir)/nvidia
     ln -sf /var/lib/nvidia.ko $INSTALL/$(get_full_module_dir)/nvidia/nvidia.ko
-    cp -P kernel/nvidia-uvm.ko $INSTALL/$(get_full_module_dir)/nvidia
+    if [ -f kernel/nvidia-uvm.ko ]; then
+      cp -P kernel/nvidia-uvm.ko $INSTALL/$(get_full_module_dir)/nvidia
+    fi
     cp -P kernel/nvidia-modeset.ko $INSTALL/$(get_full_module_dir)/nvidia
 
   mkdir -p $INSTALL/usr/lib/nvidia

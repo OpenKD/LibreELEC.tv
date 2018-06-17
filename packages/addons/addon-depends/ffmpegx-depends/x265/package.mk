@@ -19,7 +19,7 @@
 PKG_NAME="x265"
 PKG_VERSION="2.7"
 PKG_SHA256="1a731cd6e70ca26a332bb42f089da2eedfc16f606653140bef8ff48c9042a274"
-PKG_ARCH="x86_64"
+PKG_ARCH="x86_64 i386"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/videolan/x265"
 PKG_URL="https://github.com/videolan/x265/archive/${PKG_VERSION}.tar.gz"

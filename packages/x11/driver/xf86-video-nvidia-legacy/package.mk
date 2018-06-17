@@ -19,11 +19,18 @@
 
 PKG_NAME="xf86-video-nvidia-legacy"
 PKG_VERSION="340.107"
-PKG_SHA256="6dc6f183c69c414670d8adef0286a2362eedd6e16ec6dfae811e48ea4a4505dc"
-PKG_ARCH="x86_64"
+PKG_ARCH="x86_64 i386"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://www.nvidia.com/"
-PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86_64/$PKG_VERSION/NVIDIA-Linux-x86_64-$PKG_VERSION-no-compat32.run"
+
+if [ "$TARGET_ARCH" = "i386" ]; then
+  PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86/$PKG_VERSION/NVIDIA-Linux-x86-$PKG_VERSION.run"
+  PKG_SHA256="8d8bd2b04019eaa55d848534e2dbdc460be918e7731ecd8da87199ef9c1a0856"
+else
+  PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86_64/$PKG_VERSION/NVIDIA-Linux-x86_64-$PKG_VERSION-no-compat32.run"
+  PKG_SHA256="6dc6f183c69c414670d8adef0286a2362eedd6e16ec6dfae811e48ea4a4505dc"
+fi
+
 PKG_DEPENDS_TARGET="toolchain util-macros linux xorg-server libvdpau"
 PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_SECTION="x11/driver"

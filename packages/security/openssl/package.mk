@@ -64,7 +64,17 @@ pre_configure_host() {
 
 configure_host() {
   cd $PKG_BUILD/.$HOST_NAME
-  ./Configure $PKG_CONFIGURE_OPTS_HOST $PKG_CONFIGURE_OPTS_SHARED linux-x86_64 $CFLAGS $LDFLAGS
+
+  case "${MACHINE_HARDWARE_NAME}" in
+    i*86)
+      OPENSSL_ARCH = linux-generic32
+    ;;
+    x86_64)
+      OPENSSL_ARCH = linux-x86_64
+    ;;
+  esac
+
+  ./Configure $PKG_CONFIGURE_OPTS_HOST $PKG_CONFIGURE_OPTS_SHARED OPENSSL_ARCH $CFLAGS $LDFLAGS
 }
 
 makeinstall_host() {
@@ -79,6 +89,9 @@ pre_configure_target() {
     x86_64)
       OPENSSL_TARGET=linux-x86_64
       PLATFORM_FLAGS=enable-ec_nistp_64_gcc_128
+      ;;
+    i386)
+      OPENSSL_TARGET=linux-generic32
       ;;
     arm)
       OPENSSL_TARGET=linux-armv4

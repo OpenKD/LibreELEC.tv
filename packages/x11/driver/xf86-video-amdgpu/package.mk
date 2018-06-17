@@ -19,7 +19,7 @@
 PKG_NAME="xf86-video-amdgpu"
 PKG_VERSION="18.0.1"
 PKG_SHA256="7484682ccb403b3ca9e26d1c980572f08cdfa3469e2b2c9a9affc3d51b52691b"
-PKG_ARCH="x86_64"
+PKG_ARCH="x86_64 i386"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.x.org/"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/driver/$PKG_NAME-$PKG_VERSION.tar.bz2"
