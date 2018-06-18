@@ -65,16 +65,16 @@ pre_configure_host() {
 configure_host() {
   cd $PKG_BUILD/.$HOST_NAME
 
-  case "${MACHINE_HARDWARE_NAME}" in
+  case "$(uname -m)" in
     i*86)
-      OPENSSL_ARCH = linux-generic32
+      OPENSSL_ARCH=linux-generic32
     ;;
     x86_64)
-      OPENSSL_ARCH = linux-x86_64
+      OPENSSL_ARCH=linux-x86_64
     ;;
   esac
 
-  ./Configure $PKG_CONFIGURE_OPTS_HOST $PKG_CONFIGURE_OPTS_SHARED OPENSSL_ARCH $CFLAGS $LDFLAGS
+  ./Configure $PKG_CONFIGURE_OPTS_HOST $PKG_CONFIGURE_OPTS_SHARED $OPENSSL_ARCH $CFLAGS $LDFLAGS
 }
 
 makeinstall_host() {
